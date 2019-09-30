@@ -1,1 +1,9 @@
+# Sensitive data
+config.yml
+
+# Python cache
+__pycache__
 .venv
+
+# Developer tools
+.vscode
