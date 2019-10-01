@@ -21,3 +21,4 @@ pipenv run python .
 - [阿里云云解析DNS文档](https://help.aliyun.com/document_detail/29740.html?spm=a2c4g.11186623.6.610.7a71120a6IvKWU)
 - [ipify.org](https://www.ipify.org/)
 - [DescribeDomainRecords接口文档](https://help.aliyun.com/document_detail/29776.html?spm=a2c4g.11186623.6.639.5ad9124fnH3B71)
+- [UpdateDomainRecord接口文档](https://help.aliyun.com/document_detail/29774.html?spm=a2c4g.11186623.2.35.4e334256TmStOV)
