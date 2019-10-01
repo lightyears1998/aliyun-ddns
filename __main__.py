@@ -6,7 +6,7 @@ import yaml
 def main():
     keyID, keySecret, domainName, recordName = load_config()
     ip = get_ipv4_address()
-    update_domain_record(keyID, keySecret, domainName, recordName)
+    dynamic_dns(keyID, keySecret, domainName, recordName, ip)
 
 
 def load_config():
@@ -23,9 +23,10 @@ def get_ipv4_address():
     return ip
 
 
-def update_domain_record(keyID, keySecret, domainName, recordName):
+def dynamic_dns(keyID, keySecret, domainName, recordName, ip):
     record = get_domain_record(keyID, keySecret, domainName, recordName)
     recordID = record["RecordId"]
+    update_domain_record(keyID, keySecret, recordID, recordName, ip)
 
 
 def get_domain_record(keyID, keySecret, domainName, recordName):
@@ -43,11 +44,29 @@ def get_domain_record(keyID, keySecret, domainName, recordName):
     response = client.do_action_with_exception(request)
     
     records = json.loads(str(response, encoding='utf-8'))["DomainRecords"]["Record"]
-    records = filter(lambda record: record["RR"]==recordName and record["Type"]=="A", records)
+    records = filter(lambda record: record["RR"] == recordName and record["Type"] == "A", records)
     records = list(records)
     assert len(records) == 1, "找不到域名%s的A记录%s" % (domainName, recordName)
 
     return records[0]
+
+
+def update_domain_record(keyID, keySecret, recordID, recordName, ip):
+    from aliyunsdkcore.client import AcsClient
+    from aliyunsdkalidns.request.v20150109.UpdateDomainRecordRequest import UpdateDomainRecordRequest
+
+    client = AcsClient(keyID, keySecret, 'cn-hangzhou')
+
+    request = UpdateDomainRecordRequest()
+    request.set_accept_format('json')
+
+    request.set_RecordId(recordID)
+    request.set_RR(recordName)
+    request.set_Type("A")
+    request.set_Value(ip)
+
+    client.do_action_with_exception(request)
+
 
 if __name__ == "__main__":
     main()
