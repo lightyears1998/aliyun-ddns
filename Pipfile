@@ -4,10 +4,13 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pylint = "*"
 
 [packages]
 requests = "*"
 pyyaml = "*"
+aliyun-python-sdk-core-v3 = "*"
+aliyun-python-sdk-alidns = "*"
 
 [requires]
 python_version = "3.7"

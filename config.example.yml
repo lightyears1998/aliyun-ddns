@@ -1,5 +1,8 @@
-# 推荐使用阿里云RAM子用户的Access Key。
-# https://ram.console.aliyun.com/overview
+# 具有云解析权限的AccessKey
 access-key:
-  id: yourId
+  id: yourAccessKeyId
   secret: keySecret
+
+# 用于DDNS的域名和域名A记录
+domain-name: yourdomain.com
+record-name: ddns
