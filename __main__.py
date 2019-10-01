@@ -26,7 +26,9 @@ def get_ipv4_address():
 def dynamic_dns(keyID, keySecret, domainName, recordName, ip):
     record = get_domain_record(keyID, keySecret, domainName, recordName)
     recordID = record["RecordId"]
-    update_domain_record(keyID, keySecret, recordID, recordName, ip)
+    recordValue = record["Value"]
+    if recordValue != ip:
+        update_domain_record(keyID, keySecret, recordID, recordName, ip)
 
 
 def get_domain_record(keyID, keySecret, domainName, recordName):
@@ -42,7 +44,7 @@ def get_domain_record(keyID, keySecret, domainName, recordName):
     request.set_RRKeyWord(recordName)
 
     response = client.do_action_with_exception(request)
-    
+
     records = json.loads(str(response, encoding='utf-8'))["DomainRecords"]["Record"]
     records = filter(lambda record: record["RR"] == recordName and record["Type"] == "A", records)
     records = list(records)
