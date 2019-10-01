@@ -9,12 +9,13 @@
 pipenv install
 cp config.example.yml config.yml
 # 在config.yml填入必要信息
-pipenv run python .
+pipenv run python3 .
 ```
 
 ## 建议
 
 1. 推荐使用[阿里云RAM](https://ram.console.aliyun.com/overview)子用户创建AccessKey。
+2. crontab `*/10 * * * * cd path-to-aliyun-ddns/ pipenv run python .`
 
 ## 参考
 
